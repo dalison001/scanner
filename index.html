@@ -12,10 +12,10 @@
     --border:#26323f;
     --text:#e7ecef;
     --dim:#8b98a5;
-    --mint:#00e5a0;
-    --mint-dim:#0b3d30;
-    --amber:#ff8a4c;
-    --amber-dim:#3a2416;
+    --mint:#3b82f6;
+    --mint-dim:#0f2c52;
+    --amber:#38bdf8;
+    --amber-dim:#0d2b3a;
     --danger:#ff5c5c;
     --mono: ui-monospace, 'SFMono-Regular', 'Roboto Mono', Menlo, Consolas, monospace;
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -35,9 +35,9 @@
   header.top{display:flex;align-items:center;gap:12px;padding:6px 2px 18px;}
   .logo{
     width:38px;height:38px;border-radius:10px;flex:none;
-    background:linear-gradient(155deg,var(--mint),#00a878);
+    background:linear-gradient(155deg,var(--mint),#1d4ed8);
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 18px -6px rgba(0,229,160,.55);
+    box-shadow:0 6px 18px -6px rgba(59,130,246,.55);
   }
   .logo svg{width:20px;height:20px;}
   h1{font-size:16.5px;margin:0;letter-spacing:.2px;}
@@ -55,7 +55,7 @@
   .scan-btn{
     width:100%;border:none;cursor:pointer;border-radius:16px;
     padding:22px 16px;
-    background:linear-gradient(160deg,#0f2820,#0a1a15 60%);
+    background:linear-gradient(160deg,#0d2038,#0a1420 60%);
     border:1px solid var(--mint-dim);
     color:var(--mint);
     display:flex;flex-direction:column;align-items:center;gap:10px;
@@ -65,7 +65,7 @@
   .scan-btn:active{transform:scale(.98);}
   .scan-btn .ring{
     width:56px;height:56px;border-radius:50%;
-    border:1.5px dashed rgba(0,229,160,.45);
+    border:1.5px dashed rgba(59,130,246,.45);
     display:flex;align-items:center;justify-content:center;
   }
   .scan-btn svg{width:26px;height:26px;stroke:var(--mint);}
@@ -111,9 +111,9 @@
   .ticket{
     position:relative;
     border-radius:14px;
-    background:repeating-linear-gradient(135deg,#171012,#171012 10px,#1c1214 10px,#1c1214 20px);
-    background:linear-gradient(160deg,var(--amber-dim),#1a1210 70%);
-    border:1px dashed rgba(255,138,76,.5);
+    background:repeating-linear-gradient(135deg,#0c1a26,#0c1a26 10px,#0f2030 10px,#0f2030 20px);
+    background:linear-gradient(160deg,var(--amber-dim),#0a1420 70%);
+    border:1px dashed rgba(56,189,248,.5);
     padding:16px;margin-bottom:14px;
   }
   .ticket .lbl{font-size:11px;color:var(--amber);font-family:var(--mono);letter-spacing:1px;text-transform:uppercase;}
@@ -131,6 +131,23 @@
   input::placeholder{color:#516073;}
   select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%238b98a5' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
 
+  .seg-toggle{display:flex;gap:6px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:14px;}
+  .seg-btn{flex:1;border:none;background:transparent;color:var(--dim);padding:10px 6px;border-radius:11px;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;}
+  .seg-btn.active{background:linear-gradient(160deg,#0d2038,#0a1420);color:var(--mint);border:1px solid var(--mint-dim);}
+
+  .ws-item{border:1px solid var(--border);border-radius:12px;padding:12px;margin-top:14px;background:#0d141c;}
+  .ws-item-head{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--text);margin:0 0 10px;font-weight:600;}
+  .ws-item-head input[type=checkbox]{width:16px;height:16px;accent-color:var(--mint);}
+  .ws-fields{display:flex;flex-direction:column;gap:8px;}
+  .ws-fields input{margin:0;}
+  .row-inline{display:flex;gap:8px;}
+  .row-inline input{flex:1;}
+  .mini-scan{
+    flex:none;width:42px;border:1px solid var(--mint-dim);background:rgba(59,130,246,.10);
+    border-radius:10px;font-size:16px;cursor:pointer;color:var(--mint);
+  }
+  .tag.station{color:var(--amber);border-color:var(--amber-dim);background:rgba(56,189,248,.10);margin-right:0;}
+
   .tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
   .tipo-btn{
     border:1px solid var(--border);background:#0d141c;color:var(--text);
@@ -138,7 +155,7 @@
     align-items:center;gap:7px;font-size:13px;font-family:var(--sans);cursor:pointer;
   }
   .tipo-btn svg{width:22px;height:22px;stroke:var(--dim);}
-  .tipo-btn.active{border-color:var(--mint);background:rgba(0,229,160,.08);color:var(--mint);}
+  .tipo-btn.active{border-color:var(--mint);background:rgba(59,130,246,.10);color:var(--mint);}
   .tipo-btn.active svg{stroke:var(--mint);}
 
   .chips{display:flex;gap:8px;margin-top:8px;}
@@ -203,7 +220,7 @@
 
   <header class="top">
     <div class="logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#04140d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M3 12h18"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M3 12h18"/></svg>
     </div>
     <div>
       <h1>Scanner de Patrimônio</h1>
@@ -211,6 +228,12 @@
     </div>
   </header>
 
+  <div class="seg-toggle">
+    <button type="button" class="seg-btn active" data-mode="avulso">Ativo avulso</button>
+    <button type="button" class="seg-btn" data-mode="estacao">Estação de trabalho</button>
+  </div>
+
+  <div id="panelAvulso">
   <div class="card">
     <button class="scan-btn" id="btnScan">
       <div class="ring">
@@ -264,9 +287,9 @@
       <label>Hostname do PC</label>
       <input type="text" id="hostnameInput" placeholder="ex: TSES235233">
       <div class="chips">
-        <span class="chip" data-prefix="TSES">TSES</span>
-        <span class="chip" data-prefix="ESES">ESES</span>
-        <span class="chip" data-prefix="AFYA">AFYA</span>
+        <span class="chip" data-prefix="TSES" data-target="hostnameInput">TSES</span>
+        <span class="chip" data-prefix="ESES" data-target="hostnameInput">ESES</span>
+        <span class="chip" data-prefix="AFYA" data-target="hostnameInput">AFYA</span>
       </div>
     </div>
 
@@ -285,6 +308,87 @@
 
     <button class="primary-btn" id="btnSave" disabled>Registrar ativo</button>
     <button class="ghost-btn" id="btnCancel">Cancelar</button>
+  </div>
+  </div>
+
+  <div id="panelEstacao" style="display:none;">
+    <div class="card">
+      <label>Unidade</label>
+      <select id="unidadeSelectWs"></select>
+
+      <label>Setor</label>
+      <input type="text" id="setorInputWs" list="setoresListWs" placeholder="comece a digitar...">
+      <datalist id="setoresListWs"></datalist>
+
+      <label>Nome da estação (opcional)</label>
+      <input type="text" id="estacaoNomeInput" placeholder="ex: Recepção 01 — deixe em branco pra gerar automático">
+
+      <div class="ws-item">
+        <label class="ws-item-head"><input type="checkbox" id="wsPcInclude" checked> 🖥️ PC / Desktop</label>
+        <div class="ws-fields">
+          <div class="row-inline">
+            <input type="text" id="wsPcPatrimonio" placeholder="Patrimônio">
+            <button type="button" class="mini-scan" data-target="wsPcPatrimonio" title="escanear">📷</button>
+          </div>
+          <input type="text" id="wsPcHostname" placeholder="Hostname">
+          <div class="chips">
+            <span class="chip" data-prefix="TSES" data-target="wsPcHostname">TSES</span>
+            <span class="chip" data-prefix="ESES" data-target="wsPcHostname">ESES</span>
+            <span class="chip" data-prefix="AFYA" data-target="wsPcHostname">AFYA</span>
+          </div>
+          <input type="text" id="wsPcFabricante" list="fabricantesList" placeholder="Fabricante">
+          <input type="text" id="wsPcModelo" placeholder="Modelo">
+          <input type="text" id="wsPcSerial" placeholder="Serial">
+        </div>
+      </div>
+
+      <div class="ws-item">
+        <label class="ws-item-head"><input type="checkbox" id="wsMonitorInclude" checked> 🖵 Monitor</label>
+        <div class="ws-fields">
+          <div class="row-inline">
+            <input type="text" id="wsMonitorPatrimonio" placeholder="Patrimônio">
+            <button type="button" class="mini-scan" data-target="wsMonitorPatrimonio" title="escanear">📷</button>
+          </div>
+          <input type="text" id="wsMonitorFabricante" list="fabricantesList" placeholder="Fabricante">
+          <input type="text" id="wsMonitorModelo" placeholder="Modelo">
+          <input type="text" id="wsMonitorSerial" placeholder="Serial">
+        </div>
+      </div>
+
+      <div class="ws-item">
+        <label class="ws-item-head"><input type="checkbox" id="wsNobreakInclude" checked> 🔋 Nobreak</label>
+        <div class="ws-fields">
+          <div class="row-inline">
+            <input type="text" id="wsNobreakPatrimonio" placeholder="Patrimônio">
+            <button type="button" class="mini-scan" data-target="wsNobreakPatrimonio" title="escanear">📷</button>
+          </div>
+          <input type="text" id="wsNobreakFabricante" list="fabricantesList" placeholder="Fabricante">
+          <input type="text" id="wsNobreakModelo" placeholder="Modelo">
+          <input type="text" id="wsNobreakSerial" placeholder="Serial">
+        </div>
+      </div>
+
+      <div class="ws-item">
+        <label class="ws-item-head"><input type="checkbox" id="wsTecladoInclude" checked> ⌨️ Teclado</label>
+        <div class="ws-fields">
+          <input type="text" id="wsTecladoFabricante" list="fabricantesList" placeholder="Fabricante">
+          <input type="text" id="wsTecladoModelo" placeholder="Modelo">
+          <input type="text" id="wsTecladoSerial" placeholder="Serial (se tiver)">
+        </div>
+      </div>
+
+      <div class="ws-item">
+        <label class="ws-item-head"><input type="checkbox" id="wsMouseInclude" checked> 🖱️ Mouse</label>
+        <div class="ws-fields">
+          <input type="text" id="wsMouseFabricante" list="fabricantesList" placeholder="Fabricante">
+          <input type="text" id="wsMouseModelo" placeholder="Modelo">
+          <input type="text" id="wsMouseSerial" placeholder="Serial (se tiver)">
+        </div>
+      </div>
+
+      <button class="primary-btn" id="btnSaveEstacao">Registrar estação de trabalho</button>
+      <button class="ghost-btn" id="btnClearEstacaoForm">Limpar campos</button>
+    </div>
   </div>
 
   <div class="section-title">
@@ -337,6 +441,7 @@ try { records = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e
 let stream = null;
 let scanning = false;
 let detector = null;
+let scanTarget = null; // quando setado, o próximo código lido preenche esse input em vez de abrir o ticket
 let current = null; // { codigo, ts, tipo, hostname, unidade, setor, obs }
 
 // ---------- helpers ----------
@@ -355,38 +460,58 @@ function saveRecords(){
 }
 
 // ---------- unidade/setor ----------
-const unidadeSelect = $('unidadeSelect');
-const unidadeNomes = Object.keys(UNIDADES_SETORES);
-unidadeNomes.forEach(u=>{
-  const opt = document.createElement('option');
-  opt.value = u; opt.textContent = u;
-  unidadeSelect.appendChild(opt);
-});
-const DEFAULT_UNIDADE = unidadeNomes.find(u => u.startsWith('HRA')) || unidadeNomes[0];
-unidadeSelect.value = DEFAULT_UNIDADE;
-
-function populateSetores(){
-  const list = $('setoresList');
-  list.innerHTML = '';
-  const setores = UNIDADES_SETORES[unidadeSelect.value] || [];
-  setores.forEach(s=>{
+function setupUnidadeSetor(selectId, datalistId){
+  const select = document.getElementById(selectId);
+  const unidadeNomes = Object.keys(UNIDADES_SETORES);
+  unidadeNomes.forEach(u=>{
     const opt = document.createElement('option');
-    opt.value = s;
-    list.appendChild(opt);
+    opt.value = u; opt.textContent = u;
+    select.appendChild(opt);
   });
+  const defaultUnidade = unidadeNomes.find(u => u.startsWith('HRA')) || unidadeNomes[0];
+  select.value = defaultUnidade;
+  function populate(){
+    const list = document.getElementById(datalistId);
+    list.innerHTML = '';
+    const setores = UNIDADES_SETORES[select.value] || [];
+    setores.forEach(s=>{
+      const opt = document.createElement('option');
+      opt.value = s;
+      list.appendChild(opt);
+    });
+  }
+  select.addEventListener('change', populate);
+  populate();
+  return select;
 }
-unidadeSelect.addEventListener('change', populateSetores);
-populateSetores();
+const unidadeSelect = setupUnidadeSetor('unidadeSelect', 'setoresList');
+const unidadeSelectWs = setupUnidadeSetor('unidadeSelectWs', 'setoresListWs');
+
+// ---------- alternância de modo ----------
+document.querySelectorAll('.seg-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const modo = btn.dataset.mode;
+    $('panelAvulso').style.display = modo === 'avulso' ? 'block' : 'none';
+    $('panelEstacao').style.display = modo === 'estacao' ? 'block' : 'none';
+  });
+});
+
 
 // ---------- câmera / leitura ----------
-$('btnScan').addEventListener('click', startScan);
+$('btnScan').addEventListener('click', ()=> startScan(null));
+document.querySelectorAll('.mini-scan').forEach(btn=>{
+  btn.addEventListener('click', ()=> startScan(btn.dataset.target));
+});
 $('btnCloseCam').addEventListener('click', stopScan);
 $('btnManual').addEventListener('click', ()=>{
   const codigo = prompt('Digite o código do patrimônio:');
   if (codigo && codigo.trim()) { stopScan(); onDetected(codigo.trim()); }
 });
 
-async function startScan(){
+async function startScan(target){
+  scanTarget = target || null;
   $('cameraOverlay').classList.add('show');
   $('camStatus').textContent = 'iniciando câmera...';
 
@@ -473,6 +598,20 @@ function stopScan(){
 
 function onDetected(codigo){
   stopScan();
+  if (scanTarget){
+    const el = document.getElementById(scanTarget);
+    if (el){
+      el.value = codigo;
+      if (scanTarget === 'wsPcPatrimonio'){
+        const h = $('wsPcHostname');
+        if (h && !h.value) h.value = codigo;
+      }
+    }
+    scanTarget = null;
+    if (navigator.vibrate) navigator.vibrate(60);
+    toast('código lido: ' + codigo);
+    return;
+  }
   current = { codigo, ts: new Date(), tipo:null, fabricante:'', modelo:'', hostname:'', serial:'', unidade: unidadeSelect.value, setor:'', obs:'' };
   $('scanCode').textContent = codigo;
   $('scanTs').textContent = fmtTs(current.ts);
@@ -514,10 +653,11 @@ document.querySelectorAll('.tipo-btn').forEach(btn=>{
 document.querySelectorAll('.chip').forEach(chip=>{
   chip.addEventListener('click', ()=>{
     const prefix = chip.dataset.prefix;
-    const input = $('hostnameInput');
+    const input = document.getElementById(chip.dataset.target);
+    if (!input) return;
     const digits = input.value.replace(/^[A-Za-z]+/, '');
     input.value = prefix + digits;
-    validate();
+    if (input.id === 'hostnameInput') validate();
   });
 });
 
@@ -564,6 +704,86 @@ $('btnSave').addEventListener('click', ()=>{
   $('formCard').style.display = 'none';
 });
 
+// ---------- estação de trabalho ----------
+function countEstacoes(unidade, setor){
+  const ids = new Set();
+  records.forEach(r=>{ if (r.estacaoId && r.unidade === unidade && r.setor === setor) ids.add(r.estacaoId); });
+  return ids.size;
+}
+
+function clearEstacaoForm(limparLocal){
+  $('estacaoNomeInput').value = '';
+  ['wsPc','wsMonitor','wsNobreak'].forEach(p=>{
+    document.getElementById(p+'Patrimonio').value = '';
+    document.getElementById(p+'Fabricante').value = '';
+    document.getElementById(p+'Modelo').value = '';
+    document.getElementById(p+'Serial').value = '';
+  });
+  $('wsPcHostname').value = '';
+  ['wsTeclado','wsMouse'].forEach(p=>{
+    document.getElementById(p+'Fabricante').value = '';
+    document.getElementById(p+'Modelo').value = '';
+    document.getElementById(p+'Serial').value = '';
+  });
+  ['wsPcInclude','wsMonitorInclude','wsNobreakInclude','wsTecladoInclude','wsMouseInclude'].forEach(id=>{
+    document.getElementById(id).checked = true;
+  });
+  if (limparLocal){
+    $('setorInputWs').value = '';
+  }
+}
+$('btnClearEstacaoForm').addEventListener('click', ()=> clearEstacaoForm(true));
+
+$('btnSaveEstacao').addEventListener('click', ()=>{
+  const unidade = unidadeSelectWs.value;
+  const setor = $('setorInputWs').value.trim();
+  if (!unidade){ toast('selecione a unidade'); return; }
+
+  const itens = [];
+  if ($('wsPcInclude').checked){
+    itens.push({ tipo:'Desktop', codigo:$('wsPcPatrimonio').value.trim(), hostname:$('wsPcHostname').value.trim(), fabricante:$('wsPcFabricante').value.trim(), modelo:$('wsPcModelo').value.trim(), serial:$('wsPcSerial').value.trim() });
+  }
+  if ($('wsMonitorInclude').checked){
+    itens.push({ tipo:'Monitor', codigo:$('wsMonitorPatrimonio').value.trim(), hostname:'', fabricante:$('wsMonitorFabricante').value.trim(), modelo:$('wsMonitorModelo').value.trim(), serial:$('wsMonitorSerial').value.trim() });
+  }
+  if ($('wsNobreakInclude').checked){
+    itens.push({ tipo:'Nobreak', codigo:$('wsNobreakPatrimonio').value.trim(), hostname:'', fabricante:$('wsNobreakFabricante').value.trim(), modelo:$('wsNobreakModelo').value.trim(), serial:$('wsNobreakSerial').value.trim() });
+  }
+  if ($('wsTecladoInclude').checked){
+    itens.push({ tipo:'Teclado', codigo:'', hostname:'', fabricante:$('wsTecladoFabricante').value.trim(), modelo:$('wsTecladoModelo').value.trim(), serial:$('wsTecladoSerial').value.trim() });
+  }
+  if ($('wsMouseInclude').checked){
+    itens.push({ tipo:'Mouse', codigo:'', hostname:'', fabricante:$('wsMouseFabricante').value.trim(), modelo:$('wsMouseModelo').value.trim(), serial:$('wsMouseSerial').value.trim() });
+  }
+  if (!itens.length){ toast('marque pelo menos um item da estação'); return; }
+
+  const estacaoNome = $('estacaoNomeInput').value.trim() || (setor ? (setor + ' - Estação ' + (countEstacoes(unidade, setor) + 1)) : ('Estação ' + (countEstacoes(unidade, '') + 1)));
+  const estacaoId = 'ws_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+  const agora = new Date();
+
+  itens.forEach(it=>{
+    records.unshift({
+      id: Date.now() + '_' + Math.random().toString(36).slice(2,7),
+      codigo: it.codigo,
+      tipo: it.tipo,
+      fabricante: it.fabricante,
+      modelo: it.modelo,
+      hostname: it.hostname,
+      serial: it.serial,
+      unidade,
+      setor,
+      obs: '',
+      estacaoId,
+      estacaoNome,
+      ts: agora.toISOString()
+    });
+  });
+  saveRecords();
+  renderRecords();
+  toast(itens.length + ' itens registrados · ' + estacaoNome);
+  clearEstacaoForm(false);
+});
+
 // ---------- lista / registros ----------
 function renderRecords(){
   const list = $('recordsList');
@@ -575,7 +795,7 @@ function renderRecords(){
   list.innerHTML = records.map(r => `
     <div class="rec">
       <div>
-        <span class="tag">${r.tipo}</span>
+        <span class="tag">${r.tipo}</span>${r.estacaoNome ? `<span class="tag station">${escapeHtml(r.estacaoNome)}</span>` : ''}
         <div class="code">${escapeHtml(r.codigo)}${r.hostname ? ' · ' + escapeHtml(r.hostname) : ''}</div>
         <div class="meta">${[r.fabricante, r.modelo].filter(Boolean).map(escapeHtml).join(' ')}${r.serial ? ' · Série: ' + escapeHtml(r.serial) : ''}<br>${escapeHtml(r.unidade)}${r.setor ? ' · ' + escapeHtml(r.setor) : ''}<br>${fmtTs(new Date(r.ts))}${r.obs ? ' · ' + escapeHtml(r.obs) : ''}</div>
       </div>
@@ -609,6 +829,7 @@ function rowsForExport(incluirUnidade){
     };
     if (incluirUnidade) row['Unidade'] = r.unidade;
     row['Setor'] = r.setor;
+    row['Estação'] = r.estacaoNome || '';
     row['Data/Hora'] = fmtTs(new Date(r.ts));
     return row;
   });
@@ -668,6 +889,7 @@ $('btnExportXlsx').addEventListener('click', async ()=>{
         'Observação': r.obs,
         'Hostname': r.hostname,
         'Setor': r.setor,
+        'Estação': r.estacaoNome || '',
         'Data/Hora': fmtTs(new Date(r.ts))
       }));
       let name = sheetNameFromUnidade(unidade);
