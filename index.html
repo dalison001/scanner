@@ -220,8 +220,8 @@
   .card{background:#fff;border-color:#dbe3e7;border-radius:10px;box-shadow:0 2px 7px rgba(28,43,53,.05);}
   .logo{border-radius:9px;background:#2878a8;box-shadow:none;}
   h1{font-size:18px;}.sub,label,.section-title h2,details.help summary,details.help p,.empty{color:#657681;}
-  .appearance-switch{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:#657681;}
-  .appearance-switch select{width:auto;padding:7px 30px 7px 9px;border-radius:7px;background-color:#fff;color:#34454f;font-size:12px;}
+  .theme-toggle{margin-left:auto;width:38px;height:38px;border:1px solid #ccd8de;border-radius:9px;background:#fff;color:#2878a8;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 1px 3px rgba(28,43,53,.06);}
+  .theme-toggle:active{transform:scale(.95);}
   .scan-btn{background:#f8fbfc;border-color:#cbdde6;color:#176b98;border-radius:10px;padding:18px 16px;}
   .scan-btn svg{stroke:#176b98;}.scan-btn .ring{border-color:#8ab8cf;}.scan-btn .hint{color:#71818b;}
   input[type=text],select,.ws-item,.tipo-btn,.chip{background:#fff;color:#263842;border-color:#ccd8de;border-radius:7px;}
@@ -240,6 +240,17 @@
   body[data-theme="skeuomorphic"] .primary-btn{background:linear-gradient(#4d99c3,#176188);border:1px solid #0d4c6e;box-shadow:inset 0 1px rgba(255,255,255,.4),0 2px 2px rgba(37,42,42,.2);}
   body[data-theme="skeuomorphic"] .scan-btn{background:linear-gradient(#fefefe,#dfe4e2);box-shadow:inset 0 1px #fff,0 2px 4px rgba(40,45,42,.12);}
   body[data-theme="skeuomorphic"] .ghost-btn,body[data-theme="skeuomorphic"] .export-row button{background:linear-gradient(#fff,#e2dfd6);box-shadow:inset 0 1px #fff,0 1px 2px rgba(40,45,42,.12);}
+  body[data-theme="dark"]{background:#10161b;color:#e5edf1;}
+  body[data-theme="dark"] .card{background:#192229;border-color:#34444e;box-shadow:none;}
+  body[data-theme="dark"] h1{color:#edf5f7;}body[data-theme="dark"] .sub,body[data-theme="dark"] label,body[data-theme="dark"] .section-title h2,body[data-theme="dark"] details.help summary,body[data-theme="dark"] details.help p,body[data-theme="dark"] .empty{color:#9aabb5;}
+  body[data-theme="dark"] .theme-toggle{background:#192229;border-color:#40545f;color:#8fd2eb;box-shadow:none;}
+  body[data-theme="dark"] input[type=text],body[data-theme="dark"] select,body[data-theme="dark"] .ws-item,body[data-theme="dark"] .tipo-btn,body[data-theme="dark"] .chip{background:#11191f;color:#e5edf1;border-color:#34444e;}
+  body[data-theme="dark"] .seg-toggle{background:#11191f;border-color:#34444e;}body[data-theme="dark"] .seg-btn.active{background:#263946;border-color:#47788e;color:#8fd2eb;box-shadow:none;}
+  body[data-theme="dark"] .scan-btn{background:#14232b;border-color:#31596a;color:#8fd2eb;}body[data-theme="dark"] .scan-btn .hint{color:#9aabb5;}body[data-theme="dark"] .scan-btn svg{stroke:#8fd2eb;}
+  body[data-theme="dark"] .ticket{background:#142630;border-color:#417a92;}body[data-theme="dark"] .ticket .lbl{color:#8fd2eb;}
+  body[data-theme="dark"] .ghost-btn,body[data-theme="dark"] .export-row button,body[data-theme="dark"] .rec{background:#192229;color:#dce8ec;border-color:#34444e;}
+  body[data-theme="dark"] .count-pill{background:#26333b;border-color:#40545f;color:#dce8ec;}body[data-theme="dark"] .rec .tag{background:#142b36;color:#8fd2eb;border-color:#315f72;}
+  body[data-theme="dark"] #toast{background:#192229;border-color:#417a92;color:#8fd2eb;box-shadow:0 4px 16px rgba(0,0,0,.35);}
 </style>
 </head>
 <body>
@@ -253,12 +264,7 @@
       <h1>Scanner de Patrimônio</h1>
       <div class="sub">TSES · ESES · AFYA</div>
     </div>
-    <label class="appearance-switch">Estilo
-      <select id="themeSelect" aria-label="Escolher estilo visual">
-        <option value="minimal">Minimalista</option>
-        <option value="skeuomorphic">Skeuomórfico</option>
-      </select>
-    </label>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar aparência" title="Alternar aparência">☀</button>
   </header>
 
   <div class="seg-toggle">
@@ -499,12 +505,20 @@ function openManualInput(){
   onDetected(codigo.trim());
 }
 
-const savedTheme = localStorage.getItem('sx_patrimonio_theme') || 'minimal';
-document.body.dataset.theme = savedTheme;
-$('themeSelect').value = savedTheme;
-$('themeSelect').addEventListener('change', e=>{
-  document.body.dataset.theme = e.target.value;
-  localStorage.setItem('sx_patrimonio_theme', e.target.value);
+const THEMES = ['minimal', 'dark', 'skeuomorphic'];
+const THEME_ICONS = { minimal:'☀', dark:'☾', skeuomorphic:'◉' };
+const THEME_NAMES = { minimal:'Minimalista', dark:'Dark', skeuomorphic:'Skeuomórfico' };
+function setTheme(theme){
+  document.body.dataset.theme = theme;
+  $('themeToggle').textContent = THEME_ICONS[theme];
+  $('themeToggle').title = 'Tema atual: ' + THEME_NAMES[theme] + '. Toque para alterar.';
+  $('themeToggle').setAttribute('aria-label', $('themeToggle').title);
+  localStorage.setItem('sx_patrimonio_theme', theme);
+}
+const savedTheme = THEMES.includes(localStorage.getItem('sx_patrimonio_theme')) ? localStorage.getItem('sx_patrimonio_theme') : 'minimal';
+setTheme(savedTheme);
+$('themeToggle').addEventListener('click', ()=>{
+  setTheme(THEMES[(THEMES.indexOf(document.body.dataset.theme) + 1) % THEMES.length]);
 });
 
 // ---------- unidade/setor ----------
