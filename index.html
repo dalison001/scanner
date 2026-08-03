@@ -213,6 +213,33 @@
     opacity:0;transition:all .25s ease;z-index:80;white-space:nowrap;
   }
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* Aparência de aplicação: limpa por padrão e com alternativa tátil. */
+  body{background:#f4f7f8;color:#22303a;}
+  .wrap{max-width:760px;padding-top:28px;}
+  .card{background:#fff;border-color:#dbe3e7;border-radius:10px;box-shadow:0 2px 7px rgba(28,43,53,.05);}
+  .logo{border-radius:9px;background:#2878a8;box-shadow:none;}
+  h1{font-size:18px;}.sub,label,.section-title h2,details.help summary,details.help p,.empty{color:#657681;}
+  .appearance-switch{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:#657681;}
+  .appearance-switch select{width:auto;padding:7px 30px 7px 9px;border-radius:7px;background-color:#fff;color:#34454f;font-size:12px;}
+  .scan-btn{background:#f8fbfc;border-color:#cbdde6;color:#176b98;border-radius:10px;padding:18px 16px;}
+  .scan-btn svg{stroke:#176b98;}.scan-btn .ring{border-color:#8ab8cf;}.scan-btn .hint{color:#71818b;}
+  input[type=text],select,.ws-item,.tipo-btn,.chip{background:#fff;color:#263842;border-color:#ccd8de;border-radius:7px;}
+  input::placeholder{color:#91a0a8;}.seg-toggle{background:#eaf0f3;border-color:#d8e2e6;border-radius:9px;}
+  .seg-btn.active{background:#fff;border-color:#cddde4;color:#176b98;box-shadow:0 1px 3px rgba(28,43,53,.08);}
+  .tipo-btn.active{border-color:#2580ad;background:#edf7fb;color:#176b98;}.tipo-btn.active svg{stroke:#176b98;}
+  .ticket{background:#f1f8fb;border-color:#7eb9d5;}.ticket .lbl{color:#176b98;}
+  .primary-btn{background:#2477a5;color:#fff;border-radius:7px;}.primary-btn:disabled{background:#c7d3d9;color:#71818b;}
+  .ghost-btn,.export-row button{background:#fff;color:#40545f;border-color:#cbd8de;border-radius:7px;}
+  .rec{background:#fff;border-color:#dbe4e8;border-radius:8px;}.count-pill{background:#edf3f5;border-color:#d5e0e5;color:#40545f;}
+  .rec .tag{color:#176b98;border-color:#b8d6e4;background:#f1f9fc;}.export-row svg{stroke:#176b98;}
+  #toast{background:#fff;border-color:#a8ccd9;color:#176b98;box-shadow:0 4px 16px rgba(28,43,53,.12);}
+  body[data-theme="skeuomorphic"]{background:linear-gradient(135deg,#d5d2ca,#efeee9 50%,#c5c1b7);}
+  body[data-theme="skeuomorphic"] .card{background:linear-gradient(#faf9f4,#e5e1d7);border-color:#aaa496;border-radius:14px;box-shadow:inset 0 1px #fff,0 4px 10px rgba(58,52,39,.22);}
+  body[data-theme="skeuomorphic"] input[type=text],body[data-theme="skeuomorphic"] select,body[data-theme="skeuomorphic"] .ws-item,body[data-theme="skeuomorphic"] .tipo-btn,body[data-theme="skeuomorphic"] .chip{background:linear-gradient(#fff,#e4e1d8);border-color:#a9a397;box-shadow:inset 0 1px 2px rgba(44,40,32,.12);}
+  body[data-theme="skeuomorphic"] .primary-btn{background:linear-gradient(#4d99c3,#176188);border:1px solid #0d4c6e;box-shadow:inset 0 1px rgba(255,255,255,.4),0 2px 2px rgba(37,42,42,.2);}
+  body[data-theme="skeuomorphic"] .scan-btn{background:linear-gradient(#fefefe,#dfe4e2);box-shadow:inset 0 1px #fff,0 2px 4px rgba(40,45,42,.12);}
+  body[data-theme="skeuomorphic"] .ghost-btn,body[data-theme="skeuomorphic"] .export-row button{background:linear-gradient(#fff,#e2dfd6);box-shadow:inset 0 1px #fff,0 1px 2px rgba(40,45,42,.12);}
 </style>
 </head>
 <body>
@@ -226,6 +253,12 @@
       <h1>Scanner de Patrimônio</h1>
       <div class="sub">TSES · ESES · AFYA</div>
     </div>
+    <label class="appearance-switch">Estilo
+      <select id="themeSelect" aria-label="Escolher estilo visual">
+        <option value="minimal">Minimalista</option>
+        <option value="skeuomorphic">Skeuomórfico</option>
+      </select>
+    </label>
   </header>
 
   <div class="seg-toggle">
@@ -242,6 +275,7 @@
       Escanear código de barras
       <span class="hint">aponte a câmera pra etiqueta do patrimônio</span>
     </button>
+    <button class="ghost-btn" id="btnManualStart" type="button">Digitar código manualmente</button>
   </div>
 
   <div id="formCard" class="card" style="display:none;">
@@ -400,13 +434,13 @@
   <div class="card" style="margin-top:4px;">
     <div class="export-row">
       <button id="btnExportXlsx"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5a1 1 0 0 0 1 1h5M6 3h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg> Exportar Excel</button>
-      <button id="btnExportCsv"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16"/></svg> Exportar CSV</button>
+      <button id="btnExportPdf"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5a1 1 0 0 0 1 1h5M6 3h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 16h8M8 19h5"/></svg> Exportar PDF</button>
     </div>
     <button class="ghost-btn" id="btnClear" style="color:var(--danger);border-color:#3a1e1e;">Limpar todos os registros</button>
 
     <details class="help">
       <summary>como usar / avisos</summary>
-      <p>Os registros ficam salvos só neste navegador (celular ou PC). Exporte pra Excel/CSV sempre que quiser, antes de limpar. Pra câmera funcionar, abra este arquivo hospedado em HTTPS (GitHub Pages, Vercel, etc.) — a maioria dos navegadores bloqueia câmera em página aberta direto do arquivo. Funciona melhor no Chrome (Android/desktop) com câmera traseira.</p>
+      <p>Os registros ficam salvos só neste navegador (celular ou PC). Exporte para Excel ou PDF antes de limpar. A planilha Excel usa as colunas Ativo, Fabricante, Modelo, Patrimônio, Serial e Observação. Para a câmera funcionar, abra em HTTPS ou localhost.</p>
     </details>
   </div>
 
@@ -458,6 +492,20 @@ function fmtTs(d){
 function saveRecords(){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
 }
+function openManualInput(){
+  const codigo = prompt('Digite o código do patrimônio:');
+  if (!codigo || !codigo.trim()) return;
+  stopScan();
+  onDetected(codigo.trim());
+}
+
+const savedTheme = localStorage.getItem('sx_patrimonio_theme') || 'minimal';
+document.body.dataset.theme = savedTheme;
+$('themeSelect').value = savedTheme;
+$('themeSelect').addEventListener('change', e=>{
+  document.body.dataset.theme = e.target.value;
+  localStorage.setItem('sx_patrimonio_theme', e.target.value);
+});
 
 // ---------- unidade/setor ----------
 function setupUnidadeSetor(selectId, datalistId){
@@ -505,10 +553,8 @@ document.querySelectorAll('.mini-scan').forEach(btn=>{
   btn.addEventListener('click', ()=> startScan(btn.dataset.target));
 });
 $('btnCloseCam').addEventListener('click', stopScan);
-$('btnManual').addEventListener('click', ()=>{
-  const codigo = prompt('Digite o código do patrimônio:');
-  if (codigo && codigo.trim()) { stopScan(); onDetected(codigo.trim()); }
-});
+$('btnManual').addEventListener('click', openManualInput);
+$('btnManualStart').addEventListener('click', openManualInput);
 
 async function startScan(target){
   scanTarget = target || null;
@@ -814,25 +860,10 @@ function deleteRecord(id){
 window.deleteRecord = deleteRecord;
 
 // ---------- exportação ----------
-// Ordem igual ao padrão da planilha do hospital: Ativo, Fabricante, Modelo, Patrimônio, Serial, Observação
-// + colunas extras úteis (Hostname, Unidade, Setor, Data/Hora) no final.
-function rowsForExport(incluirUnidade){
-  return records.map(r => {
-    const row = {
-      'Ativo': r.tipo,
-      'Fabricante': r.fabricante,
-      'Modelo': r.modelo,
-      'Patrimônio': r.codigo,
-      'Serial': r.serial,
-      'Observação': r.obs,
-      'Hostname': r.hostname
-    };
-    if (incluirUnidade) row['Unidade'] = r.unidade;
-    row['Setor'] = r.setor;
-    row['Estação'] = r.estacaoNome || '';
-    row['Data/Hora'] = fmtTs(new Date(r.ts));
-    return row;
-  });
+// Mesmo padrão da planilha fornecida: seis colunas, uma linha para cada ativo.
+const EXPORT_HEADERS = ['Ativo', 'Fabricante', 'Modelo', 'Patrimônio', 'Serial', 'Observação'];
+function rowForExport(r){
+  return [r.tipo || '', r.fabricante || '', r.modelo || '', r.codigo || '', r.serial || '', r.obs || ''];
 }
 
 function sheetNameFromUnidade(unidade){
@@ -841,18 +872,6 @@ function sheetNameFromUnidade(unidade){
   nome = nome.replace(/[\\\/\?\*\[\]:]/g, '').trim();
   return nome.slice(0, 31) || 'Unidade';
 }
-
-$('btnExportCsv').addEventListener('click', ()=>{
-  if (!records.length){ toast('nada pra exportar ainda'); return; }
-  const rows = rowsForExport(true);
-  const headers = Object.keys(rows[0]);
-  const csvLines = [headers.join(';')];
-  rows.forEach(row=>{
-    csvLines.push(headers.map(h => '"' + String(row[h]||'').replace(/"/g,'""') + '"').join(';'));
-  });
-  const blob = new Blob(['\uFEFF' + csvLines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
-  downloadBlob(blob, 'registros_patrimonio.csv');
-});
 
 let xlsxLoading = null;
 function loadXlsxLib(){
@@ -880,28 +899,70 @@ $('btnExportXlsx').addEventListener('click', async ()=>{
     });
     const usedNames = new Set();
     Object.keys(porUnidade).forEach(unidade => {
-      const rows = porUnidade[unidade].map(r => ({
-        'Ativo': r.tipo,
-        'Fabricante': r.fabricante,
-        'Modelo': r.modelo,
-        'Patrimônio': r.codigo,
-        'Serial': r.serial,
-        'Observação': r.obs,
-        'Hostname': r.hostname,
-        'Setor': r.setor,
-        'Estação': r.estacaoNome || '',
-        'Data/Hora': fmtTs(new Date(r.ts))
-      }));
+      const rows = porUnidade[unidade].map(rowForExport);
       let name = sheetNameFromUnidade(unidade);
       let i = 2;
       while (usedNames.has(name)){ name = (sheetNameFromUnidade(unidade)).slice(0,28) + '_' + (i++); }
       usedNames.add(name);
-      const ws = XLSX.utils.json_to_sheet(rows);
+      const ws = XLSX.utils.aoa_to_sheet([EXPORT_HEADERS, ...rows]);
+      ws['!cols'] = [{wch:18},{wch:18},{wch:25},{wch:16},{wch:18},{wch:38}];
+      ws['!autofilter'] = { ref: 'A1:F' + (rows.length + 1) };
+      ws['!freeze'] = { xSplit:0, ySplit:1 };
       XLSX.utils.book_append_sheet(wb, ws, name);
     });
     XLSX.writeFile(wb, 'registros_patrimonio.xlsx');
   }catch(e){
-    toast('sem internet pra gerar Excel — use CSV');
+    toast('não foi possível gerar o Excel. Verifique a internet e tente novamente.');
+  }
+});
+
+let pdfLoading = null;
+function loadPdfLib(){
+  if (window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API.autoTable) return Promise.resolve();
+  if (pdfLoading) return pdfLoading;
+  pdfLoading = new Promise((resolve, reject)=>{
+    const core = document.createElement('script');
+    core.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
+    core.onload = ()=>{
+      const table = document.createElement('script');
+      table.src = 'https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js';
+      table.onload = resolve;
+      table.onerror = reject;
+      document.head.appendChild(table);
+    };
+    core.onerror = reject;
+    document.head.appendChild(core);
+  });
+  return pdfLoading;
+}
+
+$('btnExportPdf').addEventListener('click', async ()=>{
+  if (!records.length){ toast('nada pra exportar ainda'); return; }
+  toast('gerando PDF...');
+  try{
+    await loadPdfLib();
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'landscape', unit:'mm', format:'a4'});
+    const porUnidade = {};
+    records.forEach(r => (porUnidade[r.unidade] = porUnidade[r.unidade] || []).push(r));
+    let first = true;
+    Object.keys(porUnidade).sort().forEach(unidade => {
+      if (!first) pdf.addPage();
+      first = false;
+      pdf.setFontSize(15);
+      pdf.text('Inventário de patrimônio', 14, 14);
+      pdf.setFontSize(10);
+      pdf.text(unidade, 14, 20);
+      pdf.autoTable({
+        head:[EXPORT_HEADERS], body:porUnidade[unidade].map(rowForExport), startY:25,
+        theme:'grid', styles:{fontSize:8, cellPadding:2, overflow:'linebreak'},
+        headStyles:{fillColor:[112, 173, 200], textColor:20, fontStyle:'bold'},
+        columnStyles:{0:{cellWidth:30},1:{cellWidth:32},2:{cellWidth:48},3:{cellWidth:30},4:{cellWidth:36},5:{cellWidth:'auto'}}
+      });
+    });
+    pdf.save('registros_patrimonio.pdf');
+  }catch(e){
+    toast('não foi possível gerar o PDF. Verifique a internet e tente novamente.');
   }
 });
 
